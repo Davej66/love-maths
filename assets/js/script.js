@@ -1,19 +1,21 @@
 
-document.addEventListener("DOMContentLoaded", function() {
-    let buttons = document.getElementsByTagName("button"); 
+document.addEventListener("DOMContentLoaded", function()) {
+    let buttons = document.getElementsByTagName("button");
 
-    for(let button of buttons){
-        button.addEventListener("click, function(){
-            if(this.getAttribute("data-type") === "submit"){
+    for (let button of buttons) {
+        button.addEventListener("click", function() {
+            if (this.getAttribute("data-type") === "submit") {
                 checkAnswer();
+            } else {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
-                
             }
-        })
+        });
     }
-    runGame(addition);
-})
+
+    runGame("addition");
+
+});
 
 /**
  * The main game "Loop", called when the script is first loaded
@@ -29,11 +31,6 @@ function runGame(gameType) {
         alert(`Unknown game type: ${gameType} `);
         throw (`Unknown game type: ${gameType}. Aborting! `);
 
-        if (isCForrect) {
-            alert("Hey! You got it right! :d");
-        } else {
-            alert(`Awww you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`;
-        }}
     }
     runGame(calculatedAnswer[1]);
 }
@@ -46,6 +43,15 @@ function checkAnswer() {
     let userAnswer = parseInt(document.getElementById("answer-box").value);
     let calculatedAnswer = calculateCorrectAnswer();
     let isCorrect = userAnswer === calculatedAnswer[0];
+
+    
+    if (isCorrect) {
+        alert("Hey! You got it right! :D");
+        incrementScore();
+    } else {
+        alert(`Awww you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+        incrementWrongScore();
+        }
 
 }
 /**
@@ -65,12 +71,22 @@ function calculateCorrectAnswer() {
         throw (`Unimplemented operator; ${operator}. Aborting! `);
     }
 }
-
+/**
+ * Gets the current score from the DOM and increments by 1
+ */
 function incrementScore() {
 
-}
+    oldScore = parseInt(document.getElementById("score").innerText);
+    document.getElementById("score").innerText = ++oldscore;
 
+}
+/**
+ * Gets the tally of incorrect anwsers from the DOM and increments by 1
+ */
 function incrementWrongScore() {
+
+    oldScore = parseInt(document.getElementById("incorrect").innerText);
+    document.getElementById("incorrect").innerText = ++oldscore;
 
 }
 
